@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABCD 2</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo"><a href="../../index.html">ABCD</a></div>
+        <button class="hamburger" id="hamburger">
+          <img src="../icons/bars-solid.png" alt="bar.png" />
+        </button>
+      </div>
+      <div class="topbar-right">
+        <div class="search-container" id="searchBox" role="search">
+          <input
+            type="text"
+            placeholder="Search the application..."
+            aria-label="Search the application"
+          />
+          <div class="search-icon-container">
+            <button
+              type="button"
+              id="searchToggle"
+              class="material-icons search-icon">
+            
+              search
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!--! Container Start Here  -->
+    <div class="container">
+        <!--! Navbar Start here  -->
+      <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+        <div class="menu">
+          <div class="menu-item">
+            <a href="../pages/users.html">
+              <span class="material-icons" aria-hidden="true">person</span>
+              User
+            </a>
+          </div>
+
+          <!-- Inventory with Submenu -->
+          <div class="menu-item has-submenu">
+            <a href="javascript:void(0)" class="submenu-toggle">
+              <span class="material-icons" aria-hidden="true">inventory_2</span>
+              Inventory
+            </a>
+            <div class="submenu">
+              <a href="../pages/inventory.html">Inventory Items</a>
+              <a href="../pages/accessories.html">Accessories</a>
+              <a href="../pages/peripherals.html">Peripherals</a>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <a href="../pages/repair.html">
+              <span class="material-icons" aria-hidden="true">build</span>
+              Repair
+            </a>
+          </div>
+
+          <div class="menu-item">
+            <a href="../pages/upgrade.html">
+              <span class="material-icons" aria-hidden="true">upgrade</span>
+              Upgrade
+            </a>
+          </div>
+          <div class="menu-item">
+            <a href="../pages/issueitem.html">
+              <span class="material-icons" aria-hidden="true">
+                assignment_returned
+              </span>
+              Issue To
+            </a>
+          </div>
+          <div class="menu-item">
+            <a href="../pages/report.html">
+              <span class="material-icons" aria-hidden="true">bar_chart</span>
+              Reports
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="material-icons" aria-hidden="true">account_circle</span>
+          <span>Logged User</span>
+        </div>
+      </nav>
+
+      <!--! Main start Here  -->
+      <main class="main" id="main-content">
+        
+         <div class="details-container">
+    <a href="peripherals.html" class="back-btn">← Back to Peripherals</a>
+    <div class="details-header">
+      <img id="itemImage" src="../assets/images/placeholder.png" alt="Peripheral Image" />
+      <h2 id="itemName">Peripheral Name</h2>
+    </div>
+    <div class="details-body">
+      <p id="itemQuantity">Quantity: 0 / 0</p>
+      <!-- <p id="itemDescription">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+      <p id="itemCategory">Category: Input / Output / Networking</p>
+    </div>
+  </div>
+
+  <!-- table for demo  -->
+  <br>
+  <h3>table for Demo</h3>
+
+  <!-- table-template.html -->
+<div class="action-btn box-shadow">
+  <div class="action-controls">
+    <!-- Filter -->
+    <div class="filter action-controls">
+      <button class="btn filter-btn">Filter</button>
+    </div>
+    <!-- Content search for page -->
+    <div class="content-search">
+      <form class="search-form">
+        <div class="search-content">
+          <input type="text" placeholder="Search..." />
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Other Buttons -->
+  <div class="action-controls">
+    <button class="btn add-btn">Add User</button>
+    <button class="btn dis-btn">Disable</button>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="table accessories-table">
+    <thead>
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th>User ID</th>
+        <th>Full Name</th>
+        <th>Designation</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Remarks</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Sample Row -->
+      <tr>
+        <td><input type="checkbox" /></td>
+        <td>EMP00123</td>
+        <td>Anjali Sharma</td>
+        <td>Accountant</td>
+        <td>Finance</td>
+        <td>anjali.sharma@company.com</td>
+        <td>9876543210</td>
+        <td>Active</td>
+        <td>Full-time</td>
+        <td class="no-search">
+          <div class="action-menu">
+            <span class="material-icons action-icon">menu</span>
+            <ul class="dropdown">
+              <li><a href="edit-user.html">Edit</a></li>
+              <li><a href="#">In-active</a></li>
+              <li><a href="#">Disable</a></li>
+              <li><a href="#">Delete</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+
+        
+        <!--! main end here  -->
+      </main>
+
+      <!-- Container End Here  -->
+    </div>
+
+  </body>
+  <script src="../js/script.js"></script>
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const item = params.get("item");
+
+      if (item) {
+        // Set item name
+        document.getElementById("itemName").textContent = item;
+
+        // Placeholder data mapping (you can replace with backend fetch later)
+        const peripheralData = {
+          "Keyboard": { qty: "20 / 25", desc: "Standard office keyboard.", cat: "Input", img: "../assets/images/keyboard.png" },
+          "Mouse": { qty: "18 / 20", desc: "Wireless mouse.", cat: "Input", img: "../assets/images/mouse.png" },
+          "Speakers": { qty: "15 / 20", desc: "Stereo speakers.", cat: "Output", img: "../assets/images/speaker.png" },
+          "Headset": { qty: "22 / 25", desc: "Headset with microphone.", cat: "Output", img: "../assets/images/headset.png" },
+          "Webcam": { qty: "10 / 12", desc: "HD webcam for video calls.", cat: "Input", img: "../assets/images/webcam.png" },
+          // Add more items here
+        };
+
+        if (peripheralData[item]) {
+          const data = peripheralData[item];
+          // document.getElementById("itemQuantity").textContent = `Quantity: ${data.qty}`;
+          // document.getElementById("itemDescription").textContent = `Description: ${data.desc}`;
+          document.getElementById("itemCategory").textContent = `Category: ${data.cat}`;
+          document.getElementById("itemImage").src = data.img;
+          document.getElementById("itemImage").alt = item;
+        }
+      }
+    });
+  </script>
+</html>
