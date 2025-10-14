@@ -1,0 +1,66 @@
+<!-- table-template.html -->
+<div class="action-btn box-shadow">
+  <div class="action-controls">
+    <!-- Filter -->
+    <div class="filter action-controls">
+      <button class="btn filter-btn">Filter</button>
+    </div>
+    <!-- Content search for page -->
+    <div class="content-search">
+      <form class="search-form">
+        <div class="search-content">
+          <input type="text" placeholder="Search..." />
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Other Buttons -->
+  <div class="action-controls">
+    <button class="btn add-btn">Add User</button>
+    <button class="btn dis-btn">Disable</button>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="table accessories-table">
+    <thead>
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th>User ID</th>
+        <th>Full Name</th>
+        <th>Designation</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Remarks</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Sample Row -->
+      <tr>
+        <td><input type="checkbox" /></td>
+        <td>EMP00123</td>
+        <td>Anjali Sharma</td>
+        <td>Accountant</td>
+        <td>Finance</td>
+        <td>anjali.sharma@company.com</td>
+        <td>9876543210</td>
+        <td>Active</td>
+        <td>Full-time</td>
+        <td class="no-search">
+          <div class="action-menu">
+            <span class="material-icons action-icon">menu</span>
+            <ul class="dropdown">
+              <li><a href="edit-user.html">Edit</a></li>
+              <li><a href="#">In-active</a></li>
+              <li><a href="#">Disable</a></li>
+              <li><a href="#">Delete</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
