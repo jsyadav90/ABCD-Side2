@@ -12,6 +12,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
+
+    
   </head>
   <body>
     <!--! Top Bar -->
@@ -123,6 +125,7 @@
                 name="userId"
                 placeholder="EMP00123"
                 required
+                disabled
               />
             </div>
 
@@ -208,49 +211,23 @@
       </main>
     </div>
 
+     <!-- <script>window.addEventListener("DOMContentLoaded", async () => {
+  const userIdInput = document.getElementById("userId");
+  if (userIdInput) {
+    try {
+      const res = await fetch("http://localhost:5000/api/users/next-id");
+      const data = await res.json();
+      userIdInput.value = data.nextId;
+    } catch (err) {
+      console.error("Failed to fetch next ID:", err);
+      alert("Error fetching next User ID");
+    }
+  }
+});
+</script> -->
+
     <script src="../js/script.js"></script>
-    <!-- <script>
-      document
-        .getElementById("add-user-form")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault(); // Prevent page reload
-
-          // Collect form data
-          const newUser = {
-            userId: document.getElementById("userId").value,
-            fullName: document.getElementById("fullName").value,
-            designation: document.getElementById("designation").value,
-            department: document.getElementById("department").value,
-            email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
-            status: document.getElementById("status").value,
-            remarks: document.getElementById("remarks").value,
-          };
-
-          try {
-            // Send POST request to backend
-            const response = await fetch("http://localhost:5000/api/users", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(newUser),
-            });
-
-            if (!response.ok) throw new Error("Failed to add user");
-
-            const savedUser = await response.json();
-            console.log("User saved:", savedUser);
-
-            // Optional: show a confirmation message
-            alert("User saved successfully!");
-
-            // Redirect to users.html
-            window.location.href = "users.html";
-          } catch (error) {
-            console.error("Error saving user:", error);
-            alert("Error saving user. Please try again.");
-          }
-        });
-    </script> -->
     <script src="../js/add-form.js"></script>
+   
   </body>
 </html>
