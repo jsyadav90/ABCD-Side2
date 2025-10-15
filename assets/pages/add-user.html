@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Add User - ABCD2 </title>
+    <title>Add User - ABCD2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/media.css" />
@@ -45,7 +45,7 @@
 
     <div class="container">
       <!--! Sidebar -->
-       <nav class="sidebar show" id="sidebar" aria-label="Main navigation">
+      <nav class="sidebar show" id="sidebar" aria-label="Main navigation">
         <div class="menu">
           <div class="menu-item">
             <a href="users.html">
@@ -56,7 +56,7 @@
 
           <!-- Inventory with Submenu -->
           <div class="menu-item has-submenu">
-            <a href="javascript:void(0)" class="submenu-toggle"> 
+            <a href="javascript:void(0)" class="submenu-toggle">
               <span class="material-icons" aria-hidden="true">inventory_2</span>
               Inventory
             </a>
@@ -88,7 +88,7 @@
               Upgrade
             </a>
           </div>
-          
+
           <div class="menu-item">
             <a href="report.html">
               <span class="material-icons" aria-hidden="true">bar_chart</span>
@@ -106,10 +106,15 @@
       <!--! Main Content -->
       <main class="main" id="main-content">
         <div class="form-wrapper">
-         <a href="users.html" class="back-link">Back</a>
+          <a href="users.html" class="back-link">Back</a>
 
           <h2>Add New User</h2>
-          <form id="add-user-form" class="form-grid">
+          <form
+            id="add-user-form"
+            class="form-grid"
+            data-endpoint="http://localhost:5000/api/users"
+            data-redirect="users.html"
+          >
             <div class="form-group">
               <label for="userId">User ID</label>
               <input
@@ -204,14 +209,48 @@
     </div>
 
     <script src="../js/script.js"></script>
-    <script>
+    <!-- <script>
       document
         .getElementById("add-user-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          alert("User saved successfully!");
-          location.href = "user.html";
+        .addEventListener("submit", async function (e) {
+          e.preventDefault(); // Prevent page reload
+
+          // Collect form data
+          const newUser = {
+            userId: document.getElementById("userId").value,
+            fullName: document.getElementById("fullName").value,
+            designation: document.getElementById("designation").value,
+            department: document.getElementById("department").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            status: document.getElementById("status").value,
+            remarks: document.getElementById("remarks").value,
+          };
+
+          try {
+            // Send POST request to backend
+            const response = await fetch("http://localhost:5000/api/users", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newUser),
+            });
+
+            if (!response.ok) throw new Error("Failed to add user");
+
+            const savedUser = await response.json();
+            console.log("User saved:", savedUser);
+
+            // Optional: show a confirmation message
+            alert("User saved successfully!");
+
+            // Redirect to users.html
+            window.location.href = "users.html";
+          } catch (error) {
+            console.error("Error saving user:", error);
+            alert("Error saving user. Please try again.");
+          }
         });
-    </script>
+    </script> -->
+    <script src="../js/add-form.js"></script>
   </body>
 </html>

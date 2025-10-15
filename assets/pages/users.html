@@ -141,11 +141,10 @@
                 <th>Phone</th>
                 <th>Status</th>
                 <th>Remarks</th>
-                <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody id="userTableBody">
+              <!-- <tr>
                 <td><input type="checkbox" /></td>
 
                 <td>EMP00123</td>
@@ -215,7 +214,8 @@
                     </ul>
                   </div>
                 </td>
-              </tr>
+              </tr> -->
+              
             </tbody>
           </table>
         </div>
@@ -225,6 +225,55 @@
       <!-- Container End Here  -->
     </div>
 
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetchUsers();
+  });
+
+  async function fetchUsers() {
+    try {
+      const response = await fetch("http://localhost:5000/api/users");
+      const users = await response.json();
+
+      const tableBody = document.getElementById("userTableBody");
+      tableBody.innerHTML = "";
+
+      users.forEach((user) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td><input type="checkbox" /></td>
+          <td>${user.userId}</td>
+          <td>${user.fullName}</td>
+          <td>${user.designation || "-"}</td>
+          <td>${user.department || "-"}</td>
+          <td>${user.email}</td>
+          <td>${user.phone || "-"}</td>
+          <td>${user.status}</td>
+          <td>${user.remarks || "-"}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error("Error loading users:", error);
+    }
+  }
+</script>
+
   </body>
   <script src="../js/script.js"></script>
 </html>
+
+
+<!-- <td class="no-search">
+            <div class="action-menu">
+              <span class="material-icons action-icon">menu</span>
+              <ul class="dropdown">
+                <li><a href="#">Edit</a></li>
+                <li><a href="#">In-active</a></li>
+                <li><a href="#">Disable</a></li>
+                <li><a href="#">Delete</a></li>
+              </ul>
+            </div>
+          </td> -->

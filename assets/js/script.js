@@ -9,162 +9,105 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Apply table logic for ALL tables ---
-  document.querySelectorAll(".table").forEach(table => {
-    const selectAll = table.querySelector("thead input[type='checkbox']");
-    const checkboxes = table.querySelectorAll("tbody input[type='checkbox']");
+  // --- Generalized Table Checkbox Logic (delegation-friendly) ---
+  function initTableCheckboxes(table) {
+    if (!table) return;
 
-    if (selectAll) {
-      selectAll.addEventListener("change", () => {
-        checkboxes.forEach(cb => (cb.checked = selectAll.checked));
+    const theadCheckbox = table.querySelector("thead input[type='checkbox']");
+    const tbody = table.querySelector("tbody");
+    if (!theadCheckbox || !tbody) return;
+
+    // If this table hasn't been initialized, attach listeners (only once)
+    if (!table.dataset.checkboxInit) {
+      // 1) Select-all listener
+      theadCheckbox.addEventListener("change", () => {
+        const rowCbs = tbody.querySelectorAll("input[type='checkbox']");
+        rowCbs.forEach(cb => (cb.checked = theadCheckbox.checked));
+        updateIndeterminate();
+        // toggle row highlight for all rows
+        rowCbs.forEach(cb => {
+          const tr = cb.closest("tr");
+          if (tr) tr.classList.toggle("selected", cb.checked);
+        });
+      });
+
+      // 2) Delegated listener on tbody for individual checkbox changes
+      tbody.addEventListener("change", (e) => {
+        const target = e.target;
+        if (!target || !target.matches("input[type='checkbox']")) return;
+
+        // toggle row highlight
+        const tr = target.closest("tr");
+        if (tr) tr.classList.toggle("selected", target.checked);
+
+        // recalc header checkbox state
         updateIndeterminate();
       });
 
-      checkboxes.forEach(cb => {
-        cb.addEventListener("change", updateIndeterminate);
-      });
+      table.dataset.checkboxInit = "true";
+    }
 
-      function updateIndeterminate() {
-        const total = checkboxes.length;
-        const checked = [...checkboxes].filter(cb => cb.checked).length;
+    // Helper: compute checked / indeterminate state based on current rows
+    function updateIndeterminate() {
+      const rowCbs = tbody.querySelectorAll("input[type='checkbox']");
+      const total = rowCbs.length;
+      const checked = [...rowCbs].filter(cb => cb.checked).length;
 
-        if (checked === 0) {
-          selectAll.checked = false;
-          selectAll.indeterminate = false;
-        } else if (checked === total) {
-          selectAll.checked = true;
-          selectAll.indeterminate = false;
-        } else {
-          selectAll.checked = false;
-          selectAll.indeterminate = true;
-        }
+      if (total === 0) {
+        theadCheckbox.checked = false;
+        theadCheckbox.indeterminate = false;
+      } else if (checked === 0) {
+        theadCheckbox.checked = false;
+        theadCheckbox.indeterminate = false;
+      } else if (checked === total) {
+        theadCheckbox.checked = true;
+        theadCheckbox.indeterminate = false;
+      } else {
+        theadCheckbox.checked = false;
+        theadCheckbox.indeterminate = true;
       }
     }
 
-    // Row selection highlight
-    checkboxes.forEach(cb => {
-      cb.addEventListener("change", () => {
-        cb.closest("tr").classList.toggle("selected", cb.checked);
-      });
-    });
+    // Set initial state (useful if rows already exist)
+    updateIndeterminate();
+  }
 
-    
-  });
+  // Initialize all existing tables on page load
+  document.querySelectorAll(".table").forEach(initTableCheckboxes);
 
+  // Expose a refresh function to call after you add/replace rows dynamically
+  // (e.g. after fetch/populating rows)
+  window.refreshTableCheckboxes = () => {
+    document.querySelectorAll(".table").forEach(initTableCheckboxes);
+  };
 
+  // --- Search filter logic (unchanged) ---
+  const searchInput = document.querySelector(".search-form input");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const term = searchInput.value.trim().toLowerCase();
+      const rows = document.querySelectorAll("table tbody tr");
 
+      rows.forEach(row => {
+        let rowMatches = false;
 
+        row.querySelectorAll("td").forEach(td => {
+          td.querySelectorAll("mark").forEach(mark => {
+            mark.replaceWith(document.createTextNode(mark.textContent));
+          });
 
+          if (term === "") return;
 
-  //! --- Search filter (works with whichever table is currently visible) ---
-const searchInput = document.querySelector(".search-form input");
-if (searchInput) {
-  searchInput.addEventListener("input", () => {
-    const term = searchInput.value.trim();
-    const rows = document.querySelectorAll("table tbody tr");
-
-    rows.forEach(row => {
-      let rowMatches = false;
-
-      row.querySelectorAll("td").forEach(td => {
-        // Remove previous highlights
-        td.querySelectorAll("mark").forEach(mark => {
-          mark.replaceWith(document.createTextNode(mark.textContent));
+          const text = td.textContent;
+          if (text.toLowerCase().includes(term)) {
+            rowMatches = true;
+            const regex = new RegExp(`(${term})`, "gi");
+            td.innerHTML = text.replace(regex, "<mark>$1</mark>");
+          }
         });
 
-        if (term === "") return; // skip highlighting
-
-        const text = td.textContent;
-
-        // Case-insensitive search anywhere in cell
-        if (text.toLowerCase().includes(term.toLowerCase())) {
-          rowMatches = true;
-
-          // Highlight matched term(s)
-          const regex = new RegExp(`(${term})`, "gi");
-          td.innerHTML = text.replace(regex, "<mark>$1</mark>");
-        }
+        row.style.display = rowMatches || term === "" ? "" : "none";
       });
-
-      // Show row only if it matches search
-      row.style.display = rowMatches || term === "" ? "" : "none";
     });
-  });
-}
-
-// Search end 
-
-
-
-
+  }
 });
-
-
-
-
-
-
-
-
-
-//! ------------------ This is table action script ------------------
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".action-icon").forEach((icon) => {
-    icon.addEventListener("click", (e) => {
-      const dropdown = e.target.nextElementSibling;
-
-      // Close all other open dropdowns
-      document.querySelectorAll(".action-menu .dropdown").forEach((menu) => {
-        if (menu !== dropdown) menu.style.display = "none";
-      });
-
-      // Toggle visibility
-      if (dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-        dropdown.classList.remove("drop-up", "drop-left", "drop-right");
-      } else {
-        dropdown.style.display = "block";
-
-        // Reset previous position classes
-        dropdown.classList.remove("drop-up", "drop-left", "drop-right");
-
-        // Positioning logic
-        const rect = dropdown.getBoundingClientRect();
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-
-        // Space available
-        const spaceBottom = vh - rect.bottom;
-        const spaceTop = rect.top;
-        const spaceRight = vw - rect.right;
-        const spaceLeft = rect.left;
-
-        // Default: dropdown opens down
-        let position = "down";
-
-        if (spaceBottom < dropdown.offsetHeight && spaceTop > dropdown.offsetHeight) {
-          position = "up"; // open upwards
-        } else if (spaceRight < dropdown.offsetWidth && spaceLeft > dropdown.offsetWidth) {
-          position = "left"; // open left
-        } else if (spaceRight > dropdown.offsetWidth) {
-          position = "right"; // open right
-        }
-
-        if (position === "up") dropdown.classList.add("drop-up");
-        if (position === "left") dropdown.classList.add("drop-left");
-        if (position === "right") dropdown.classList.add("drop-right");
-      }
-    });
-  });
-
-  // Close dropdown if clicking outside
-  window.addEventListener("click", (e) => {
-    if (!e.target.closest(".action-menu")) {
-      document.querySelectorAll(".action-menu .dropdown").forEach((menu) => {
-        menu.style.display = "none";
-        menu.classList.remove("drop-up", "drop-left", "drop-right");
-      });
-    }
-  });
-});
-
