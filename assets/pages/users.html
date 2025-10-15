@@ -29,8 +29,8 @@
             <button
               type="button"
               id="searchToggle"
-              class="material-icons search-icon">
-            
+              class="material-icons search-icon"
+            >
               search
             </button>
           </div>
@@ -40,7 +40,7 @@
 
     <!--! Container Start Here  -->
     <div class="container">
-        <!--! Navbar Start here  -->
+      <!--! Navbar Start here  -->
       <nav class="sidebar" id="sidebar" aria-label="Main navigation">
         <div class="menu">
           <div class="menu-item">
@@ -71,7 +71,7 @@
               Issue To
             </a>
           </div>
-          
+
           <div class="menu-item">
             <a href="../pages/repair.html">
               <span class="material-icons" aria-hidden="true">build</span>
@@ -85,7 +85,7 @@
               Upgrade
             </a>
           </div>
-          
+
           <div class="menu-item">
             <a href="../pages/report.html">
               <span class="material-icons" aria-hidden="true">bar_chart</span>
@@ -215,7 +215,6 @@
                   </div>
                 </td>
               </tr> -->
-              
             </tbody>
           </table>
         </div>
@@ -225,25 +224,27 @@
       <!-- Container End Here  -->
     </div>
 
-
+    <script src="../js/script.js"></script>
+    <script src="../js/config.js"></script>
     <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    fetchUsers();
-  });
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchUsers();
+      });
 
-  async function fetchUsers() {
-    try {
-      // const response = await fetch("http://localhost:5000/api/users");
-      const response = await fetch("https://backend-luby.onrender.com/api/users") || fetch("http://localhost:5000/api/users");
-      const users = await response.json();
+      async function fetchUsers() {
+        try {
+          // const response = await fetch("http://localhost:5000/api/users");
+          // const response = await fetch("https://backend-luby.onrender.com/api/users");
+           const response = await fetch(`${BASE_URL}/api/users`);
+          const users = await response.json();
 
-      const tableBody = document.getElementById("userTableBody");
-      tableBody.innerHTML = "";
+          const tableBody = document.getElementById("userTableBody");
+          tableBody.innerHTML = "";
 
-      users.forEach((user) => {
-        const row = document.createElement("tr");
+          users.forEach((user) => {
+            const row = document.createElement("tr");
 
-        row.innerHTML = `
+            row.innerHTML = `
           <td><input type="checkbox" /></td>
           <td>${user.userId}</td>
           <td>${user.fullName}</td>
@@ -254,18 +255,15 @@
           <td>${user.status}</td>
           <td>${user.remarks || "-"}</td>
         `;
-        tableBody.appendChild(row);
-      });
-    } catch (error) {
-      console.error("Error loading users:", error);
-    }
-  }
-</script>
-
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Error loading users:", error);
+        }
+      }
+    </script>
   </body>
-  <script src="../js/script.js"></script>
 </html>
-
 
 <!-- <td class="no-search">
             <div class="action-menu">
