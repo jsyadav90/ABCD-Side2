@@ -854,3 +854,44 @@ main {
 .page-header .actions .btn {
   margin-left: 10px;
 }
+
+
+
+
+
+/*! CSS for Filter button and it's fields.. */
+
+/* Filter controls container */
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Input fields and selects */
+.filter-controls input,
+.filter-controls select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Apply button */
+.filter-controls button {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filter-controls button:hover {
+  background-color: #0056b3;
+}

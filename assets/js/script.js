@@ -22,10 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1) Select-all listener
       theadCheckbox.addEventListener("change", () => {
         const rowCbs = tbody.querySelectorAll("input[type='checkbox']");
-        rowCbs.forEach(cb => (cb.checked = theadCheckbox.checked));
+        rowCbs.forEach((cb) => (cb.checked = theadCheckbox.checked));
         updateIndeterminate();
         // toggle row highlight for all rows
-        rowCbs.forEach(cb => {
+        rowCbs.forEach((cb) => {
           const tr = cb.closest("tr");
           if (tr) tr.classList.toggle("selected", cb.checked);
         });
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateIndeterminate() {
       const rowCbs = tbody.querySelectorAll("input[type='checkbox']");
       const total = rowCbs.length;
-      const checked = [...rowCbs].filter(cb => cb.checked).length;
+      const checked = [...rowCbs].filter((cb) => cb.checked).length;
 
       if (total === 0) {
         theadCheckbox.checked = false;
@@ -88,11 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const term = searchInput.value.trim().toLowerCase();
       const rows = document.querySelectorAll("table tbody tr");
 
-      rows.forEach(row => {
+      rows.forEach((row) => {
         let rowMatches = false;
 
-        row.querySelectorAll("td").forEach(td => {
-          td.querySelectorAll("mark").forEach(mark => {
+        row.querySelectorAll("td").forEach((td) => {
+          td.querySelectorAll("mark").forEach((mark) => {
             mark.replaceWith(document.createTextNode(mark.textContent));
           });
 
@@ -110,4 +110,43 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  //! Find all filter buttons on the page (Reusable JS for filter button)
+  const filterButtons = document.querySelectorAll(".filter-btn");
+
+  filterButtons.forEach((btn) => {
+    const tableBodyId = btn.dataset.targetTable;
+    const tableBody = document.getElementById(tableBodyId);
+    const filterControls = document.getElementById("filterControls");
+    const applyBtn = document.getElementById("applyFilter");
+
+    // Toggle filter controls
+    btn.addEventListener("click", () => {
+      if (!filterControls) return;
+      filterControls.style.display =
+        filterControls.style.display === "none" ? "block" : "none";
+    });
+
+    // Apply filter
+    if (applyBtn && tableBody) {
+      applyBtn.addEventListener("click", () => {
+        const rows = tableBody.getElementsByTagName("tr");
+        const inputs = filterControls.querySelectorAll(".filter-input");
+
+        for (let row of rows) {
+          let show = true;
+
+          inputs.forEach((input) => {
+            const colIndex = parseInt(input.dataset.column);
+            const value = input.value.toLowerCase();
+            const cellText = row.cells[colIndex].textContent.toLowerCase();
+
+            if (value && !cellText.includes(value)) show = false;
+          });
+
+          row.style.display = show ? "" : "none";
+        }
+      });
+    }
+  });
 });
