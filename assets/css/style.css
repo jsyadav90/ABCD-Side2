@@ -94,7 +94,6 @@ header {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-
 }
 
 header .topbar-left {
@@ -158,7 +157,7 @@ header .topbar-right {
 }
 .search-container .search-icon {
   background: none;
-  padding: 0  ;
+  padding: 0;
   border: none;
   cursor: pointer;
   color: #98a2b3;
@@ -243,7 +242,6 @@ header .topbar-right {
   border-top: 1px solid #334155;
 }
 
-
 /* Submenu Part  */
 .has-submenu {
   position: relative;
@@ -289,8 +287,8 @@ header .topbar-right {
 .has-submenu:hover > .submenu {
   display: flex;
   flex-direction: column;
-  position: fixed; 
-  left: var(--sidebar-width); 
+  position: fixed;
+  left: var(--sidebar-width);
   top: calc(var(--topbar-height) + 52px);
 }
 
@@ -341,7 +339,6 @@ main {
   flex-direction: column; /* stack actions + table */
   /* overflow: hidden; */
 }
-
 
 /*! ==========================================================
    Action Buttons
@@ -416,7 +413,6 @@ main {
   -o-border-radius: 6px;
 }
 
-
 /* Table Base  */
 
 .table {
@@ -433,12 +429,12 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 200px;  
+  max-width: 200px;
 }
 
 /* First (checkbox) column */
 .table th:first-child,
-.table td:first-child, 
+.table td:first-child,
 .table th:last-child,
 .table td:last-child {
   /* width: 50px !important;
@@ -446,7 +442,7 @@ main {
   max-width: 50px !important; */
   text-align: center;
 }
-  /* .table th:last-child,
+/* .table th:last-child,
   .table td:last-child {
     width: 100px !important;
     min-width: 100px !important;
@@ -471,6 +467,9 @@ main {
 .table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+.table tbody tr.selected {
+  background-color: #d0ebff;
+}
 
 /* Checkbox */
 .table input[type="checkbox"] {
@@ -490,16 +489,19 @@ main {
   z-index: 2000;
   white-space: normal;
   max-width: 250px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   pointer-events: none;
   animation: fadeIn 0.15s ease;
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
 
 /* Action menu (last column) */
 .action-menu {
@@ -520,7 +522,7 @@ main {
   border: 1px solid #ccc;
   border-radius: 6px;
   min-width: 140px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 9999; /* very high */
   white-space: nowrap;
 }
@@ -544,12 +546,10 @@ main {
   display: block;
 }
 
-
-
 .table-container {
   overflow: overlay;
-  scrollbar-width: thin;       /* Firefox */
-  scrollbar-color: #2196f3 transparent  ; /* scrollbar color */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #2196f3 transparent; /* scrollbar color */
 }
 /* WebKit browsers (Chrome, Safari, Edge) */
 .table-container::-webkit-scrollbar {
@@ -569,7 +569,6 @@ main {
 .table-container:active::-webkit-scrollbar-thumb {
   opacity: 1; /* show on hover/scroll */
 }
-
 
 /* ==========================================================
    Tabs (Inventory)
@@ -598,7 +597,6 @@ main {
   color: #fff;
   border-color: var(--color-primary);
 }
-
 
 /*! ==========================================================
    Dashboard Cards (Summary) - Inventory
@@ -630,7 +628,6 @@ main {
   margin: 0;
   color: var(--color-muted);
 }
-
 
 .form-wrapper {
   background: #fff;
@@ -700,10 +697,6 @@ main {
   }
 }
 
-
-
-
-
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -743,7 +736,7 @@ main {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
@@ -752,13 +745,19 @@ main {
   padding: 20px 30px;
   border-radius: 12px;
   width: 400px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px);}
-  to { opacity: 1; transform: translateY(0);}
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .close {
@@ -820,7 +819,7 @@ main {
   border: 1px solid #ddd;
   border-radius: 6px;
   min-width: 120px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   list-style: none;
   padding: 5px 0;
   z-index: 1000;
@@ -855,10 +854,6 @@ main {
   margin-left: 10px;
 }
 
-
-
-
-
 /*! CSS for Filter button and it's fields.. */
 
 /* Filter controls container */
@@ -871,7 +866,7 @@ main {
   padding: 10px;
   background-color: #f5f5f5;
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Input fields and selects */
