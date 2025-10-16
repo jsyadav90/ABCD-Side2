@@ -111,42 +111,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //! Find all filter buttons on the page (Reusable JS for filter button)
-  const filterButtons = document.querySelectorAll(".filter-btn");
-
-  filterButtons.forEach((btn) => {
-    const tableBodyId = btn.dataset.targetTable;
-    const tableBody = document.getElementById(tableBodyId);
-    const filterControls = document.getElementById("filterControls");
-    const applyBtn = document.getElementById("applyFilter");
-
-    // Toggle filter controls
-    btn.addEventListener("click", () => {
-      if (!filterControls) return;
-      filterControls.style.display =
-        filterControls.style.display === "none" ? "block" : "none";
-    });
-
-    // Apply filter
-    if (applyBtn && tableBody) {
-      applyBtn.addEventListener("click", () => {
-        const rows = tableBody.getElementsByTagName("tr");
-        const inputs = filterControls.querySelectorAll(".filter-input");
-
-        for (let row of rows) {
-          let show = true;
-
-          inputs.forEach((input) => {
-            const colIndex = parseInt(input.dataset.column);
-            const value = input.value.toLowerCase();
-            const cellText = row.cells[colIndex].textContent.toLowerCase();
-
-            if (value && !cellText.includes(value)) show = false;
-          });
-
-          row.style.display = show ? "" : "none";
-        }
-      });
-    }
-  });
 });
